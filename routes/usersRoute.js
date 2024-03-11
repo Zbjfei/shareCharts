@@ -24,10 +24,6 @@ router.get('/user/:username',userController.getUserByUserName);
 router.post('/user/login',userController.userLogin);
 
 
-// 通过模板引擎跳转到login.ejs
-router.get('/login/', async (req, res) => {
-  res.render('login', { err: '' })
-});
 
 
 module.exports = router;

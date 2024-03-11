@@ -44,8 +44,12 @@ const userController = {
             } else {
                 // res.render('main', { user: user })
                // return user
-    
-                 res.json(user);
+                          //设置session
+              req.session.userinfo=user;
+              //res.send("登陆成功！");
+               //res.render('main', { user })
+               res.redirect('/main');
+               //  res.json(user);
                 // console.log(req.url)
                 // console.log(user)
             }
