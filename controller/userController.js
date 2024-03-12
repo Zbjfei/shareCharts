@@ -1,4 +1,13 @@
 const userService = require("../service/userService");
+//const uploadAvatar = require('../multer/upload')
+
+
+// const myModule = require('./myModule.js');
+// const method = myModule.method;
+// const otherMethod = myModule.otherMethod;
+// // OR:
+const {uploadAvatar, getFiles} = require('../multer/upload');
+
 
 
 //export obj  
@@ -60,6 +69,42 @@ const userController = {
           //console.log(error);
         }
       }
+      ,
+
+
+
+      // 用户的逻辑控制器
+      upload:async (req, res) => {
+        // 图片上传        
+        console.log("req71")
+          try {
+            const uploadRes = await uploadAvatar(req, res)
+            res.send({
+              meta: { code: 200, msg: 'success' },
+              data: { img_url: uploadRes}
+            })
+          } catch (error) {
+           console.log(error)
+          }
+        }
+      ,
+        getDirfiles:async (req, res) => {
+          // 图片列表        
+          console.log("req 85 userController")
+            try {
+              console.log("req 87 userController")
+              const Files = await getFiles("files")
+              res.send({
+                meta: { code: 200, msg: 'success' },
+                data: { Files: Files}
+              })
+            } catch (error) {
+              console.log("req 94 userController")
+              console.log(error)
+              res.send(error)
+            }
+          }
+        
 
 }
 

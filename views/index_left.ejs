@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <meta http-equiv="refresh" content="30" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <style type="text/css">
         <!--
@@ -33,23 +34,59 @@
 <body style="line-height:26px">
 
 
-    <a href=?del=1&url=conn.zip>Del</a> > <a href=127.0.0.1:8080/tmpfile/conn.zip>conn.zip<br><a
+    <!--/*  <a href=?del=1&url=conn.zip>Del</a> > <a href=127.0.0.1:8080/tmpfile/conn.zip>conn.zip<br><a
             href=?del=1&url=mongoDBPPT.ppt>Del</a> > <a
-            href=http://127.0.0.1:8080/tmpfile/mongoDBPPT.ppt>mongoDBPPT.ppt<br>
+            href=http://127.0.0.1:8080/tmpfile/mongoDBPPT.ppt>mongoDBPPT.ppt<br> */  -->
 
-            <div style="position: fixed;bottom: 0;">
+    <div style="position: fixed;bottom: 0;">
 
-                <form action="/sub_upload" method="post" name="kunbao_ch_type" enctype="multipart/form-data">
+        <!-- /* <form action="/api/upload/file" method="post" enctype="multipart/form-data"> */ -->
 
-                    <input type="file" name="kunbao_file" size="10">
+        <form>
+            <input type="file" name="file" id="file" size="10">
 
-                    <input type="submit" name="tiaoma_ch" value="upload">
-                    </td>
+            <input type="button" id="btn" name="btn" value="uploadfile">
 
 
-                </form>
-            </div>
+        </form>
+    </div>
 
+
+    <script>
+
+        let btn = document.querySelector('#btn');
+        btn.addEventListener('click', () => {
+            // 要处理成表单对象上传
+            const formsdata = new FormData();
+            //formsdata.append('username', username.value);
+            // 追加name值，和文件对象
+            formsdata.append('file', file.files[0]);
+
+            axios.post('/api/upload/file', formsdata, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }).then(res => {
+                if (res.data.meta.code === 200) {
+                    location.reload();
+                }             
+                
+                // document.querySelector('img').src = res.data.imgPath;
+            });
+        });
+
+
+/* 
+        axios.get("/api/upload/getfiles").then((res) => {
+            console.log(res)
+        }).catch((error) => {
+            console.error(error)
+        }); */
+
+
+
+
+    </script>
 </body>
 
 </html>

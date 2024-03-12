@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 */
 app.use('/static', express.static("static"))
 app.use('/lib', express.static("lib"))
+app.use('/files', express.static("files"))
 
 
 

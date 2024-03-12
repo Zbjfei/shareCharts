@@ -24,6 +24,10 @@ router.get('/user/:username',userController.getUserByUserName);
 router.post('/user/login',userController.userLogin);
 
 
+// upload
+router.post('/upload/file', userController.upload)
+router.get('/upload/getfiles', userController.getDirfiles)
+
 
 
 module.exports = router;
