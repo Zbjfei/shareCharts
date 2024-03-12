@@ -6,7 +6,7 @@ const userService = require("../service/userService");
 // const method = myModule.method;
 // const otherMethod = myModule.otherMethod;
 // // OR:
-const {uploadAvatar, getFiles} = require('../multer/upload');
+const {uploadAvatar, getFiles,deleteFile} = require('../multer/upload');
 
 
 
@@ -90,22 +90,34 @@ const userController = {
       ,
         getDirfiles:async (req, res) => {
           // 图片列表        
-          console.log("req 85 userController")
+          //console.log("req 85 userController")
             try {
-              console.log("req 87 userController")
+            //  console.log("req 87 userController")
               const Files = await getFiles("files")
               res.send({
                 meta: { code: 200, msg: 'success' },
-                data: { Files: Files}
+                data: { files: Files}
               })
             } catch (error) {
-              console.log("req 94 userController")
+              //console.log("req 94 userController")
               console.log(error)
               res.send(error)
             }
           }
         
-
+          ,
+          deleteFile:async (req, res)=>{
+            const  { filename } = req.params
+            console.log(filename)
+           // console.log(req.params)
+            await deleteFile(filename)
+           
+              res.send({
+                meta: { code: 200, msg: 'success' },
+              })
+            
+            
+          }
 }
 
 

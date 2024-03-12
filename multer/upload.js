@@ -42,12 +42,25 @@ module.exports = {
 
     getFiles: function(dir) {
 
-        console.log("30  dir multer/upload.js")
+      let arrFiles = [];
+        //console.log("30  dir multer/upload.js")
         fs.readdirSync(dir).forEach(file => {
-            console.log(file);
+            //console.log(file);
+            arrFiles.push(file);
           });
-
+          return arrFiles;
       },
+
+      deleteFile:function(filename){
+          fs.unlink('files/'+filename, (err) => {
+          if (err) {
+            console.error(err);
+            return 0;
+          }
+          return 1;
+          console.log('文件删除成功');
+        });
+      }
 };
 
 

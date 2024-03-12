@@ -34,6 +34,17 @@
 <body style="line-height:26px">
 
 
+    <% for(let i = 0; i < files.length; i++){%> 
+
+
+        <a href="/api/upload/delFile/<%=files[i]%>">Del</a> 
+          >
+        <a href="http://127.0.0.1:8080/files/<%=files[i]%>">  <%=files[i]%></a>  <br>
+
+
+
+          <% } %> 
+
     <!--/*  <a href=?del=1&url=conn.zip>Del</a> > <a href=127.0.0.1:8080/tmpfile/conn.zip>conn.zip<br><a
             href=?del=1&url=mongoDBPPT.ppt>Del</a> > <a
             href=http://127.0.0.1:8080/tmpfile/mongoDBPPT.ppt>mongoDBPPT.ppt<br> */  -->
@@ -76,13 +87,13 @@
         });
 
 
-/* 
+ /*
         axios.get("/api/upload/getfiles").then((res) => {
             console.log(res)
         }).catch((error) => {
             console.error(error)
-        }); */
-
+        }); 
+*/
 
 
 

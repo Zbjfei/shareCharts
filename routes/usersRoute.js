@@ -27,6 +27,7 @@ router.post('/user/login',userController.userLogin);
 // upload
 router.post('/upload/file', userController.upload)
 router.get('/upload/getfiles', userController.getDirfiles)
+router.get('/upload/delFile/:filename', userController.deleteFile)
 
 
 

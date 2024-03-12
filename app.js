@@ -75,6 +75,10 @@ app.use((req, res, next) => {
     next()
     return
   }
+
+  //next()
+
+
   if (req.session.userinfo) {
     //重新设置以下sesssion
     req.session.mydate = Date.now()//加这个设置才能访问刷新过期时间
@@ -82,9 +86,22 @@ app.use((req, res, next) => {
   } else {
     //是接口, 就返回错误码
     //不是接口，就重定向（因为ajax请求是不能重定向的，只能前端接收错误码做处理）
-    req.url.includes("api")
-      ? res.status(401).json({ ok: 0 }) : res.redirect("/login")
+    if(req.url.includes("upload")){
+      //剔除upload的api了 不安全 但是axios请求又会拦截
+      next();
+
+
+    }else{
+
+      req.url.includes("api")
+      ? res.status(401).json({ ok: "reqsession distory" }) : res.redirect("/login")
+
+    }
+
+
   }
+
+  
 })
 
 // 通过ejs模板引擎跳转到login.ejs

@@ -28,8 +28,10 @@ const storage = multer.diskStorage({
     console.log(file.originalname)
     // 自定义图片名称
     // cb(null, Date.now() + '.' + fileFormat[fileFormat.length - 1])
-    // 原始文件名称
-    cb(null, file.originalname )
+    // 原始文件名称 转utf-8否则中文乱码
+    let fileOriginalName = Buffer.from(file.originalname, 'latin1').toString('utf-8');
+
+    cb(null, fileOriginalName )
   }
 })
 
