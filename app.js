@@ -86,28 +86,19 @@ app.use((req, res, next) => {
   }
 })
 
-// 通过模板引擎跳转到login.ejs
+// 通过ejs模板引擎跳转到login.ejs
 app.use('/login', async (req, res) => {
   res.render('login', { err: '' })
 });
 
 
+//注册主页面路由
+const mainRoute = require('./routes/mainRoute.js');
+app.use('/', mainRoute);
 
 
 
-app.use('/main', async (req, res) => {
-  //console.log("main")
-  //获取session
-  if (req.session.userinfo) {
-    //	res.send("hello "+req.session.userinfo.username+"，welcome");
-    res.render('main', { userinfo: req.session.userinfo })
 
-
-  } else {
-    res.send("未登陆");
-  }
-
-});
 
 // app.use  3.配置应用级别中间件，注册路由中间件，http://127.0.0.1:8080/api/***/
 const userRoute = require('./routes/usersRoute.js');
