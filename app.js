@@ -6,10 +6,18 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const app = express();
 
+
+
 //console.log(conn)
 // 0. 配置ejs模板引擎
 app.set("views", "./views")
 app.set("view engine", "ejs")
+
+
+app.use(function(req, res, next) {
+  res.locals.globalUrl = 'http://127.0.0.1/';
+  next();
+});
 
 
 // 以下2行等价的，让express支持解析json格式的post参数,4.16版本后，bodyParser已集成到express.json()

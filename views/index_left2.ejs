@@ -1,0 +1,130 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <style type="text/css">
+        <!--
+        body {
+            margin: 10px;
+            background-color: #f5f6f9;
+            border-right: 1px solid #999;
+
+        }
+
+        a {
+            text-decoration: underline;
+            color: #333;
+
+        }
+
+        .style1 {
+            color: #CC6633
+        }
+        -->
+    </style>
+
+
+
+
+</head>
+
+<body style="line-height:26px">
+
+    <h2>Node.js MongoDB Chat&File Share Platform</h2>
+    <hr>
+
+
+    <%# 第一次的files从页面跳转的index_left中获取数据 以后的数据通过js的定时任务获取数据并加载到fileList中进行替换 %>
+        <div class="fileList" id="fileList">
+
+            <% for(let i=0; i < files.length; i++){%>
+
+
+                <a href="/api/upload/delFile/<%=files[i]%>">Del</a>
+                >
+                <a href="/files/<%=files[i]%>">
+                    <%=files[i]%>
+                </a> <br>
+
+
+
+                <% } %>
+
+        </div>
+
+
+
+
+        <div style="position: fixed;bottom: 0;">
+
+            <!-- /* <form action="/api/upload/file" method="post" enctype="multipart/form-data"> */ -->
+
+            <form>
+                <input type="file" name="file" id="file" size="10">
+
+                <input type="button" id="btn" name="btn" value="uploadfile">
+
+
+            </form>
+        </div>
+
+
+        <script>
+
+            let btn = document.querySelector('#btn');
+            btn.addEventListener('click', () => {
+                // 要处理成表单对象上传
+                const formsdata = new FormData();
+                //formsdata.append('username', username.value);
+                // 追加name值，和文件对象
+                formsdata.append('file', file.files[0]);
+
+                axios.post('/api/upload/file', formsdata, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }).then(res => {
+                    if (res.data.meta.code === 200) {
+                        location.reload();
+                    }
+
+                    // document.querySelector('img').src = res.data.imgPath;
+                });
+            });
+
+
+
+
+            function getdata() {
+                //console.log(1)
+                axios.get("/api/upload/getfiles").then((res) => {
+                    res = res.data.data.files
+                    // console.log(res)
+
+                    var userListHTML = ""
+                    for (var i = 0; i < res.length; i++) {
+                        userListHTML += `
+                   <a href="/api/upload/delFile/${res[i]}">Del</a> 
+                    >
+                    <a href="/files/${res[i]}">  ${res[i]}</a>  <br>
+                    `;
+                    }
+                    document.querySelector('#fileList').innerHTML = userListHTML
+
+                }).catch((error) => {
+                    // console.error(error)
+                });
+
+            }
+
+            setInterval(function () {
+                getdata();
+            }, 30000)
+
+        </script>
+</body>
+
+</html>

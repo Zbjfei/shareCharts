@@ -46,6 +46,26 @@ router.get('/index_left', async (req, res) => {
 
 
 });
+
+
+
+router.get('/index_left2', async (req, res) => {
+
+ 
+
+
+  let productApi;
+  try {
+    productApi = await axios.get("http://127.0.0.1:8080/api/upload/getfiles")
+  } catch (err) {  
+    return res.end(err);
+  }
+  files = productApi.data.data.files
+  //var obj = {"files":files};
+  res.render('index_left2', { files })
+});
+
+
 router.get('/index_right', async (req, res) => { res.render('index_right') });
 router.get('/index_down', async (req, res) => { res.render('index_down') });
 
