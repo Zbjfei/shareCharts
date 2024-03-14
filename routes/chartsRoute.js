@@ -17,7 +17,8 @@ const router = express.Router();
 
 router.get('/charts/', async (req, res) => {
   try {
-    await shareCharts.find({}, { limit: 3, skip: 0, sort: { createTime: -1 }, fields: { _id: 0 } },
+    //若charts超过此记录 则index_right页面会bug不再刷新  					if(oldstr.length != res.length){
+    await shareCharts.find({}, { limit: 10000, skip: 0, sort: { createTime: -1 }, fields: { _id: 0 } },
       function (err, data) {
         res.json(data);
       });

@@ -102,7 +102,7 @@ app.use((req, res, next) => {
     }else{
 
       req.url.includes("api")
-      ? res.status(401).json({ ok: "reqsession distory" }) : res.redirect("/login")
+      ? res.status(401).json({ ok: "req session distory" }) : res.redirect("/login")
 
     }
 
@@ -133,7 +133,7 @@ app.use('/api/', userRoute);
 // charts route
 const chartRoute = require('./routes/chartsRoute.js');
 const { resolveInclude } = require('ejs');
-app.use('/api', chartRoute);
+app.use('/api/', chartRoute);
 
 
 // app.use    4.配置错误级别中间件， 用于无法匹配进行错误拦截

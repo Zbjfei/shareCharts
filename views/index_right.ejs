@@ -2,7 +2,8 @@
 <html>
 <head>
 <META http-equiv=Content-Type content="text/html; charset=gb2312">
-<meta http-equiv="refresh" content="5" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <title></title>
 <style type="text/css">
@@ -20,7 +21,48 @@ body {
 </head>
 
 <body style="line-height:26px">
+
+<!--
 03:04:07 > wangzihu : DEF</br>03:04:04 > wangzihu : ABC</br>
+-->
+
+<div class="chartList" id="chartList"></div>
 </body>
 
+<script>
+	
+	let oldstr=[]
+
+	function getdata() {
+                //console.log(1)
+                axios.get("/api/charts/").then((res) => {
+
+					res = res.data
+					//console.log(oldstr.length !== res.length)
+					
+                    //console.log(res)
+					if(oldstr.length != res.length){
+                    var userListHTML = ""
+                    for (var i = 0; i < res.length; i++) {
+                        userListHTML += `
+
+						 ${res[i].username}  : ${res[i].chartContent} </br>
+
+                    `;
+                    }
+                    document.querySelector('#chartList').innerHTML = userListHTML
+					oldstr=res
+				}
+                }).catch((error) => {
+                    // console.error(error)
+                });
+
+            }
+
+            setInterval(function () {
+                getdata();
+            }, 5000)
+
+        </script>
+		
 </html>
