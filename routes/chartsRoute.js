@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 const express = require('express');
-
+const moment = require('moment')
 // import db connection 
 const db = require('../db/config.js');
 
@@ -53,16 +53,25 @@ router.get('/charts/:username', async (req, res) => {
 // insert chart message
 router.post('/charts/', async (req, res) => {
   try {
-    const { username, chartContent, createTime } = req.body;
+   // const { username, chartContent, createTime } = req.body;
+    const {  chartContent } = req.body;
     console.log(req.body)
+    console.log(chartContent)
 
+    //get seesion username
+    let username="userinfo.username"
+   // let username=req.session.userinfo.username
+    console.log(req.session.userinfo.username)
+    
+    let createTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+    console.log (createTime)
     // validate
     await chartSchema.validateAsync({ username, chartContent, createTime });
     const newChart = await shareCharts.insert({
       username, chartContent, createTime
     });
     console.log(newChart)
-    res.status(200).json(newChart);
+    res.status(200).json({ok:"1"});
   } catch (error) {
     res.status(500).end("insert err ");
   }

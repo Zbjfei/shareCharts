@@ -1,33 +1,82 @@
 
-DEF...
  
 <HTML>
 <HEAD>
 <TITLE>JXUE</TITLE>
 <META http-equiv=Content-Type content="text/html; charset=gb2312">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 <style type="text/css">
 <!--
 body {
 	margin: 10px;
 	background-color:#fff;
 	 display: flex; justify-content: center; align-items: center; 
+
 }
+
+
+.btn{
+border:1px solid #d2a000;
+box-shadow: 0 1px 2px #fedd71 inset,0 -1px 0 #a38b39 inset,0 -2px 3px #fedd71 inset;
+background: -webkit-linear-gradient(top,#fece34,#d8a605);
+background: -moz-linear-gradient(top,#fece34,#d8a605);
+background: linear-gradient(top,#fece34,#d8a605);
+width: 140px;
+line-height: 38px;
+text-align: center;
+margin: 5px; 
+}
+
 </style>
 </HEAD>
 
   <body> 
   <div style="margin:0 auto;">
   
-  <form action="?type=1" method="post">
-   
-  wangzihu&nbsp;>&nbsp;
- <!-- <input name="say" style="width:300px;" type="text">-->
-  <textarea style="width:300px;" rows="3" name="say"></textarea>
-    <input name="type" type="hidden" value="1">
-  <input name="button"  value="Say" type="submit" />
-
+  <form>
+    <div id="notic" style="height: 28px;font-size: 12px; color: #666;"></div>
+<div style="display: flex;align-items: flex-start; /* 垂直对齐 */">
+  <textarea style="width:450px;" rows="3" id="say" name="say"></textarea>
+  <input name="btn" id="btn" value="Say" class="btn" type="button" />
+</div>
   </form>
   </div>
+
+  <script>
+
+    let btn = document.querySelector('#btn');
+    btn.addEventListener('click', () => {
+      var sayContent = $('#say').val();
+      if(sayContent==""){
+        document.querySelector('#notic').innerHTML = '> Please enter some text ...'
+        return;
+      }
+      axios.post('/api/charts/', {
+        chartContent: sayContent,
+        })
+        .then(function (res) {
+          console.log(res);
+          if (res.data.ok === "1") {
+                //location.reload();
+                document.querySelector('#notic').innerHTML = '> '+sayContent.substring(0,20)+' ...'
+                $('#say').val('');
+            }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+
+
+
+
+
+    });
+
+</script>
   </body>
 
 </HTML>
