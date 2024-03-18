@@ -59,8 +59,8 @@ router.post('/charts/', async (req, res) => {
     console.log(chartContent)
 
     //get seesion username
-    let username="userinfo.username"
-   // let username=req.session.userinfo.username
+    //let username="userinfo.username"
+    let username=req.session.userinfo.username
     console.log(req.session.userinfo.username)
     
     let createTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
