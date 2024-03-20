@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>title</title>
+    <title>Share&Chat</title>
 </head>
 
 <body>
     <form action="/api/user/login/"  method="post">
 
-        <input name="username" id="username" style="width:150px;height:25px;font-size:18px;">
+        <input name="username" type="password" id="username" style="width:150px;height:25px;font-size:18px;">
         <input name="type" type="hidden" value="1">
         <%=err%>
             <input name="button" id="login" type="button" value="Login">
