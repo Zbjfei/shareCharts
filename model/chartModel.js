@@ -5,6 +5,7 @@ const chartSchema = Joi.object({
     .min(3)
     .max(30)
     .required(),
+    usernameCN:Joi.string(),
     chartContent:Joi.string(),
     createTime:Joi.date(),
 });

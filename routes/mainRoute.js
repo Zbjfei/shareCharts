@@ -56,6 +56,7 @@ router.get('/index_left2', async (req, res) => {
 
   let productApi;
   try {
+    console.log(1);
     productApi = await axios.get("http://127.0.0.1:8080/api/upload/getfiles")
   } catch (err) {  
     return res.end(err);

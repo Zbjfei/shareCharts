@@ -85,14 +85,15 @@ router.post('/charts/', async (req, res) => {
     //get seesion username
     //let username="userinfo.username"
     let username=req.session.userinfo.username
+    let usernameCN=req.session.userinfo.usernameCN
     console.log(req.session.userinfo.username)
     
     let createTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
     console.log (createTime)
     // validate
-    await chartSchema.validateAsync({ username, chartContent, createTime });
+    await chartSchema.validateAsync({ username,usernameCN, chartContent, createTime });
     const newChart = await shareCharts.insert({
-      username, chartContent, createTime
+      username,usernameCN, chartContent, createTime
     });
     console.log(newChart)
     res.status(200).json({ok:"1"});
