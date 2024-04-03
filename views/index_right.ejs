@@ -9,22 +9,22 @@
 <style type="text/css">
 <!--
 body {
-	margin: 10px;
+	margin: 0px;
 	background-color:#f5f6f9;
+    font-size: 14px;
+    line-height:35px
 	/*border-right:1px solid #666;*/
 }
 .style1 {color: #CC6633}
+
 -->
 </style>
 
 
 </head>
 
-<body style="line-height:26px">
+<body>
 
-<!--
-03:04:07 > wangzihu : DEF</br>03:04:04 > wangzihu : ABC</br>
--->
 
 <div class="chartList" id="chartList"></div>
 </body>
@@ -44,11 +44,16 @@ body {
 					if(oldstr.length != res.length){
                     var userListHTML = ""
                     for (var i = 0; i < res.length; i++) {
-                        userListHTML += `
 
-						 ${res[i].usernameCN}  : ${res[i].chartContent} </br>
+                        if(i%2==0){  
+                            colo='background-color:#DFF0D8'
+                       }
+                        userListHTML += `<div style="${colo};border-radius:6px;" >
+
+						 ${res[i].usernameCN}  :&nbsp; ${res[i].chartContent}  </div>
 
                     `;
+                    colo='background-color:#f6eaea;';
                     }
                     document.querySelector('#chartList').innerHTML = userListHTML
 					oldstr=res

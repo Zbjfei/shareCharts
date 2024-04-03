@@ -7,8 +7,54 @@
 
     <style type="text/css">
         <!--
+        /* 整个滚动条 */
+        ::-webkit-scrollbar {
+            width: 10px;
+            /* 滚动条的宽度 */
+            height: 10px;
+            /* 滚动条的高度，对水平滚动条有效 */
+            background-color: #f9f9fd;
+            /* 滚动条的背景颜色 */
+        }
+
+        /* 滚动条轨道 */
+        ::-webkit-scrollbar-track {
+            border-radius: 8px;
+            background: #e1e1e1;
+            /* 轨道的背景颜色 */
+        }
+
+        /* 滚动条滑块 */
+        ::-webkit-scrollbar-thumb {
+            border-radius: 8px;
+            background-color: #c1c1c1;
+            /* 滑块的背景颜色 */
+            border: 3px solid #e1e1e1;
+            /* 滑块的边框和轨道相同的颜色，可以制造“边距”的效果 */
+        }
+
+        /* 滚动条滑块：悬停效果 */
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #a8a8a8;
+            /* 滑块的悬停颜色 */
+        }
+
+        /* 滚动条滑块：激活时的效果 */
+        ::-webkit-scrollbar-thumb:active {
+            background-color: #888888;
+            /* 滑块的激活颜色 */
+        }
+
+        /* 滚动条按钮（上下箭头） */
+        ::-webkit-scrollbar-button {
+            display: none;
+            /* 通常情况下不显示滚动条按钮 */
+        }
+
+
+
         body {
-            margin: 10px;
+            margin: 0px;
             background-color: #f5f6f9;
             border-right: 1px solid #999;
 
@@ -23,6 +69,10 @@
         .style1 {
             color: #CC6633
         }
+
+        .fileList {
+            padding-left: 10px;
+        }
         -->
     </style>
 
@@ -33,7 +83,7 @@
 
 <body style="line-height:26px">
 
-    <h2>Node.js MongoDB Chat&File Share Platform</h2>
+    <h2 style="padding: 15 0 0 10">Node.js MongoDB Chat&File Share Platform</h2>
     <hr>
 
 
@@ -56,9 +106,9 @@
         </div>
 
 
+        </br></br>
 
-
-        <div style="position: fixed;bottom: 0;">
+        <div style="position: fixed;bottom: 0;padding-left: 30px;padding-top: 10px;height: 40px; width: 100%; background-color: #f8eecf;">
 
             <!-- /* <form action="/api/upload/file" method="post" enctype="multipart/form-data"> */ -->
 
@@ -106,6 +156,7 @@
 
                     var userListHTML = ""
                     for (var i = 0; i < res.length; i++) {
+
                         userListHTML += `
                    <a href="/api/upload/delFile/${res[i]}">Del</a> 
                     >
