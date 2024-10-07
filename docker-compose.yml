@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:4.4.29
+    container_name: mongo
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123
+    ports:
+      - "27017:27017"
+    volumes:
+      - /home/mongodb/data:/data/db
+    privileged: true
+
+  sharefiles:
+    image: node:16.20.2
+    container_name: sharefiles
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "27016:27016"
+    volumes:
+      # 证书映射
+      - /home/ShareFiles/files:/files
+    privileged: true
