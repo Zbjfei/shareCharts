@@ -26,7 +26,7 @@ const userService = {
     }
     , userLogin: (username) => {
         console.log("userService28"+username)
-        const user = shareUsers.findOne({
+        const user = shareUsers.find({
             username: username,
         });
 

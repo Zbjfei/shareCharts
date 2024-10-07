@@ -38,7 +38,7 @@ router.get('/charts/', async (req, res) => {
   
        // console.log(data);
           // console.log(req.session.userinfo.username)
-
+        
         res.json(data);
 
   
@@ -80,22 +80,26 @@ router.post('/charts/', async (req, res) => {
    // const { username, chartContent, createTime } = req.body;
     const {  chartContent } = req.body;
     console.log(req.body)
-    console.log(chartContent)
+   let chartContentHtml=chartContent.toString();
+   chartContentHtml = chartContentHtml.replace(/\n/g, '<br>');
+    console.log("85" + chartContentHtml)
 
     //get seesion username
     //let username="userinfo.username"
-    let username=req.session.userinfo.username
-    let usernameCN=req.session.userinfo.usernameCN
-    console.log(req.session.userinfo.username)
+    let username=req.session.userinfo[0].username
+    let usernameCN=req.session.userinfo[0].usernameCN
+    console.log("row90  "+req.session.userinfo[0].username)
     
     let createTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
-    console.log (createTime)
+    console.log("row95   " +createTime)
     // validate
-    await chartSchema.validateAsync({ username,usernameCN, chartContent, createTime });
+    await chartSchema.validateAsync({ username,usernameCN, chartContentHtml, createTime });
     const newChart = await shareCharts.insert({
-      username,usernameCN, chartContent, createTime
+      username,usernameCN, chartContentHtml, createTime
     });
+    console.log("row103 send ok ")
     console.log(newChart)
+
     res.status(200).json({ok:"1"});
   } catch (error) {
     res.status(500).end("insert err ");

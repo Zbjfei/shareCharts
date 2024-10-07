@@ -7,6 +7,7 @@ const userService = require("../service/userService");
 // const otherMethod = myModule.otherMethod;
 // // OR:
 const {uploadAvatar, getFiles,deleteFile} = require('../multer/upload');
+const { use } = require("../routes/usersRoute");
 
 
 
@@ -43,13 +44,19 @@ const userController = {
         try {
             const  { username } = req.body
             console.log("controller" + username)
+            if(username === '' || username === 0){
+              return;
+            }
             const user  = await userService.userLogin(username)
             console.log (user)
-            if (!user) {
-                // console.log(req.url +"user does not exist")
+            if (Object.keys(user).length===0) {
+                 console.log("user not exist1");
                 // res.end("user does not exist")
-                //res.render('login', { err: 'user not exist' })
-                 res.json("user not exist")
+                //res.render('login', { err: 'err' })
+                res.redirect('/login');
+
+                // res.render('login')
+
             } else {
                 // res.render('main', { user: user })
                // return user

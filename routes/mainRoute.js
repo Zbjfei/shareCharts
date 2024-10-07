@@ -67,7 +67,12 @@ router.get('/index_left2', async (req, res) => {
 });
 
 
-router.get('/index_right', async (req, res) => { res.render('index_right') });
+router.get('/index_right', async (req, res) => { 
+
+  let usernameen = req.session.userinfo[0].username;
+  res.render('index_right',{ LoginUser: usernameen })
+
+});
 router.get('/index_down', async (req, res) => { res.render('index_down') });
 
 

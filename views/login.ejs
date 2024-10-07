@@ -12,6 +12,7 @@
         <input name="username" type="password" id="username" style="width:150px;height:25px;font-size:18px;">
         <input name="type" type="hidden" value="1">
         <%=err%>
+        <span id="res"></span>
             <input name="button" id="login" type="button" value="Login">
     </form>
 
@@ -20,8 +21,14 @@
         var login = document.querySelector("#login")
     
             login.onclick=()=>{
-                console.log(username.value)
-                fetch("/api/user/login/",{
+        console.log(username.value)
+        if (username.value == '' || username.value == undefined || username.value == null) {//输入框中输入空格也为空
+            //return true;
+            alert("input username");
+        } else {
+            //return false;
+           
+            fetch("/api/user/login/",{
                     method:"POST",
                     body:JSON.stringify({
                         username:username.value
@@ -31,8 +38,14 @@
                     }
                 }).then(res=>{
                     console.log(res)
-                    location.href="/main"
+                    location.href=res.url;
                 })
+
+        }
+               
+
+
+
             }
     
     

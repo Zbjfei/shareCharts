@@ -17,6 +17,9 @@ body {
 }
 .style1 {color: #CC6633}
 
+hr{
+    border: 0.5px solid #ccc;
+}
 -->
 </style>
 
@@ -24,9 +27,10 @@ body {
 </head>
 
 <body>
-
-
+    
 <div class="chartList" id="chartList"></div>
+
+
 </body>
 
 <script>
@@ -34,27 +38,48 @@ body {
 	let oldstr=[]
 
 	function getdata() {
-                //console.log(1)
+                
                 axios.get("/api/charts/").then((res) => {
 
 					res = res.data
+                    //res=res.reverse();
+
 					//console.log(oldstr.length !== res.length)
 					
-                    //console.log(res)
+                    console.log(res)
 					if(oldstr.length != res.length){
                     var userListHTML = ""
                     for (var i = 0; i < res.length; i++) {
+                        var usr = '<%= LoginUser %>';
+                        //console.log(usr);
+                        let usr2=res[i].username;
+                        //console.log(usr2);
+                        console.log(usr2==usr);
+                        
 
-                        if(i%2==0){  
-                            colo='background-color:#DFF0D8'
-                       }
-                        userListHTML += `<div style="${colo};border-radius:6px;" >
+                        
 
-						 ${res[i].usernameCN}  :&nbsp; ${res[i].chartContent}  </div>
+                        var colo;
+                                                  
+                            if(usr==usr2){
+                                console.log(1)
+                            colo='background-color:#f5f6f9;padding:10px;text-align:right;'
+                            }else{
+                                console.log(2)
+                                colo='background-color:#f5f6f9;padding:10px;'
+                            }
 
-                    `;
-                    colo='background-color:#f6eaea;';
-                    }
+                        
+                                console.log(3)
+
+
+                            userListHTML += `<div style="${colo};" >
+
+						                    - - ${res[i].usernameCN}  &nbsp; ${res[i].createTime}  </br> ${res[i].chartContentHtml}  </div>
+
+                                        `;
+
+                                    }
                     document.querySelector('#chartList').innerHTML = userListHTML
 					oldstr=res
 				}
