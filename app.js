@@ -141,7 +141,7 @@ app.use('/', (err, res) => {
   res.status(404).send("page not found")
 })
 
-// app.listen 5.配置监听服务端口并启动服务
+// app.listen 
 app.listen(8080, () => {
   console.log(`Listening on port 8080`);
 });
