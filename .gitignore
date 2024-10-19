@@ -4,3 +4,7 @@ logs
 *.log
 npm-debug.log*
 files
+*.docx
+*.tmp
+
+
